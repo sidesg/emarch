@@ -1,0 +1,9 @@
+*.csv
+*.atf
+*.code-workspace
+.DS_Store
+**/__pycache__
+*.json
+py_lib
+*.txt
+*.xlsx
