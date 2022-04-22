@@ -1,0 +1,11 @@
+{
+    "uri_root": "http://emarch.com/",
+    "id_stem": "id/",
+    "data_stem": "data/",
+    "fonds_uri_name":"f01",
+    "namespaces": {
+        "rico": "https://www.ica.org/standards/RiC/ontology#"
+    },
+    "fonds_csv_path":"../fonds_info/fonds_cat.csv",
+    "rdf_output_hdir":"../emarch_rdf"
+}

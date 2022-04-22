@@ -2,10 +2,10 @@
 
 from pathlib import Path
 
-with open("fonds_info/fonds_pnums.txt") as infile:
+with open("../fonds_info/fonds_pnums.txt") as infile:
     pnum_list = infile.read().split()
 
-transc_hdir = Path("atf/indiv_atf")
+transc_hdir = Path("../atf/indiv_atf")
 
 if not transc_hdir.exists():
     transc_hdir.mkdir()
@@ -13,7 +13,7 @@ if not transc_hdir.exists():
 
 print(f"{len(pnum_list)} p-numbers loaded")
 
-with open("atf/cdliatf_unblocked.atf", "r") as infile:
+with open("../cdli_data/cdliatf_unblocked.atf", "r") as infile:
     allatf = [line.rstrip('\n') for line in infile]
 
 for pnum in pnum_list:

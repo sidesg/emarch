@@ -3,9 +3,9 @@
 import pandas as pd
 import json
 
-full_cat_df = pd.read_csv("cdli_data/cdli_cat.csv")
+full_cat_df = pd.read_csv("../cdli_data/cdli_cat.csv")
 
-with open("first_info_gen/search_config.json", "r") as infile:
+with open("../first_info_gen/search_config.json", "r") as infile:
     searches = json.load(infile)
 
 def intersect_dflist(dflist):
@@ -44,7 +44,7 @@ if len(search_keys) > 1:
             how="outer"
         )
 
-fonds_df.to_csv("fonds_info/fonds_cat.csv", index=False)
+fonds_df.to_csv("../fonds_info/fonds_cat.csv", index=False)
 
 print(
     f"Combined total {len(fonds_df)}"
@@ -56,6 +56,6 @@ pnums = [
     fonds_df["id_text"]
     ]
 
-with open("fonds_info/fonds_pnums.txt", "w") as of:
+with open("../fonds_info/fonds_pnums.txt", "w") as of:
     for pnum in pnums:
         of.write(pnum + "\n")

@@ -1,0 +1,6 @@
+{
+    "source_dir": "named_entity_source",
+    "agents_filename":"agents.csv",
+    "dates_filename": "dates.csv",
+    "positions_filename": "positions.csv"
+}
