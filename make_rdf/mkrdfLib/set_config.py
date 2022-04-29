@@ -1,5 +1,3 @@
-#!/usr/local/bin/python3
-
 import json
 from rdflib import URIRef, Graph, Namespace
 from pathlib import Path
@@ -22,4 +20,4 @@ fondsURI = URIRef((uri_root + "record/" + fonds_uri_name))
 fonds_csv_path = Path(gen_config["fonds_csv_path"])
 
 rdf_output_hdir = Path(gen_config["rdf_output_hdir"])
-    
+rdf_out_form = gen_config["rdf_output"]    

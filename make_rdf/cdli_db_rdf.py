@@ -29,8 +29,6 @@ import mkrdfLib.tools as emg
 from mkrdfLib.set_config import *
 
 fondsdf = pd.read_csv(fonds_csv_path)
-
-# output_hdir = Path(config["rdf_output_hdir"])
     
 rows = fondsdf['id_text']
 print(f'{len(rows)} documents to process')
@@ -97,4 +95,4 @@ for row in rows:
 # now = datetime.datetime.now()
 # timestamp = str(now.strftime("%Y_%m_%d_(%H_%M)"))
 
-emg.write_g(rdf_output_hdir / "cdlidb_data.jsonld", g)
+emg.write_g(rdf_output_hdir / f"cdlidb_data.{rdf_out_form}", g, rdf_out_form)

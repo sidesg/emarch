@@ -1,5 +1,13 @@
 #!/usr/local/bin/python3
 
+"""
+Creates triplets about entities that aren't in the CDLI csv.
+
+TODO:   Ability to update wrt existing graph
+        More flexible importation of multiple names, spellings, etc
+        Dynamic URI creation wrt spaces occupied in existing graph
+"""
+
 from rdflib import SKOS, URIRef, RDF, Literal, BNode
 from pathlib import Path
 import pandas as pd
@@ -27,12 +35,12 @@ def choose_import():
 
     if choice == str(2):
         import_dates()
-        emg.write_g(rdf_output_hdir / "dates.jsonld", g)
+        emg.write_g(rdf_output_hdir / f"dates.{rdf_out_form}", g, rdf_out_form)
         exit()
     
     if choice == str(3):
         import_pos()
-        emg.write_g(rdf_output_hdir / "positions.jsonld", g)
+        emg.write_g(rdf_output_hdir / f"positions.{rdf_out_form}", g, rdf_out_form)
         exit()
 
     if choice.lower().startswith("q"):
@@ -40,6 +48,54 @@ def choose_import():
 
     else:
         choose_import()
+
+def import_dates():
+    source_pth = ne_source_dir / ne_config["dates_filename"]
+    ne_df = pd.read_csv(source_pth)
+
+    positions = ne_df["id"]
+    for pos_id in positions:
+        rowinfo = ne_df.loc[ne_df['id'] == pos_id]
+        idURI = URIRef((id_root + "date/" + pos_id))
+        typeURI = URIRef((rowinfo['type'].iloc[0]))
+
+        g.add((
+            idURI,
+            RDF.type,
+            typeURI
+        ))
+
+        g.add((
+            idURI,
+            RICO.normalizedDateValue,
+            Literal(rowinfo['normalizedDateValue'].iloc[0])
+        ))
+        g.add((
+            idURI,
+            RICO.expressedDate,
+            Literal(rowinfo['expressedDate'].iloc[0], lang="en")
+        ))
+
+        if rowinfo['precedesInTime'].notna().all():
+            g.add((
+                idURI,
+                RICO.precedesInTime,
+                URIRef((id_root + "date/" + rowinfo['precedesInTime'].iloc[0]))
+            ))       
+
+        if rowinfo['isOrWasPartOf'].notna().all():
+            g.add((
+                idURI,
+                RICO.isOrWasPartOf,
+                URIRef((id_root + "date/" + rowinfo['isOrWasPartOf'].iloc[0]))
+            )) 
+        
+        if rowinfo['ruler'].notna().all():
+            g.add((
+                idURI,
+                RICO.isRelatedTo,
+                URIRef((id_root + "agent/" + rowinfo['ruler'].iloc[0]))
+            ))   
 
 
 def import_pos():
@@ -104,56 +160,7 @@ def import_pos():
             spelling,
             SKOS.prefLabel,
             Literal(rowinfo['n1_s1_normVal'].iloc[0])
-        ))
-        
-def import_dates():
-    source_pth = ne_source_dir / ne_config["dates_filename"]
-    ne_df = pd.read_csv(source_pth)
-
-    positions = ne_df["id"]
-    for pos_id in positions:
-        rowinfo = ne_df.loc[ne_df['id'] == pos_id]
-        idURI = URIRef((id_root + "date/" + pos_id))
-        typeURI = URIRef((rowinfo['type'].iloc[0]))
-
-        g.add((
-            idURI,
-            RDF.type,
-            typeURI
-        ))
-
-        g.add((
-            idURI,
-            RICO.normalizedDateValue,
-            Literal(rowinfo['normalizedDateValue'].iloc[0])
-        ))
-        g.add((
-            idURI,
-            RICO.expressedDate,
-            Literal(rowinfo['expressedDate'].iloc[0], lang="en")
-        ))
-
-        if rowinfo['precedesInTime'].notna().all():
-            g.add((
-                idURI,
-                RICO.precedesInTime,
-                URIRef((id_root + "date/" + rowinfo['precedesInTime'].iloc[0]))
-            ))       
-
-        if rowinfo['isOrWasPartOf'].notna().all():
-            g.add((
-                idURI,
-                RICO.isOrWasPartOf,
-                URIRef((id_root + "date/" + rowinfo['isOrWasPartOf'].iloc[0]))
-            )) 
-        
-        if rowinfo['ruler'].notna().all():
-            g.add((
-                idURI,
-                RICO.isRelatedTo,
-                URIRef((id_root + "agent/" + rowinfo['ruler'].iloc[0]))
-            ))                  
-
+        ))               
 
 
 choose_import()

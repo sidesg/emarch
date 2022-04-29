@@ -1,5 +1,14 @@
 #!/usr/local/bin/python3
 
+"""
+Creates a csv slice of complete CDLI csv based on search criteria in config.
+More searches can be added, result will be union set of all search results.
+Also makes a plain-text file of P-numbers for lighter weight master of fonds contents.
+
+TODO:   Specification of exclusion criteria
+        Basic stats on output?
+"""
+
 import pandas as pd
 import json
 

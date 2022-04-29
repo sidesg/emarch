@@ -1,5 +1,10 @@
 #!/usr/local/bin/python3
 
+"""
+Creates individual txt files of transcriptions from cdliatf_unblocked
+based on csv created by delimit_fonds.py.
+"""
+
 from pathlib import Path
 
 with open("../fonds_info/fonds_pnums.txt") as infile:

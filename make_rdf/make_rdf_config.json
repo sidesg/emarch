@@ -7,5 +7,6 @@
         "rico": "https://www.ica.org/standards/RiC/ontology#"
     },
     "fonds_csv_path":"../fonds_info/fonds_cat.csv",
-    "rdf_output_hdir":"../emarch_rdf"
+    "rdf_output_hdir":"../emarch_rdf",
+    "rdf_output": "jsonld"
 }
