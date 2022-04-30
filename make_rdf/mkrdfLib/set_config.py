@@ -20,4 +20,5 @@ fondsURI = URIRef((uri_root + "record/" + fonds_uri_name))
 fonds_csv_path = Path(gen_config["fonds_csv_path"])
 
 rdf_output_hdir = Path(gen_config["rdf_output_hdir"])
-rdf_out_form = gen_config["rdf_output"]    
+rdf_out_form = gen_config["rdf_output"]
+rdf_out_ext = gen_config["rdf_output_ext"]

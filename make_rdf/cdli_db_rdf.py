@@ -95,4 +95,4 @@ for row in rows:
 # now = datetime.datetime.now()
 # timestamp = str(now.strftime("%Y_%m_%d_(%H_%M)"))
 
-emg.write_g(rdf_output_hdir / f"cdlidb_data.{rdf_out_form}", g, rdf_out_form)
+emg.write_g(rdf_output_hdir / f"cdlidb_data.{rdf_out_ext}", g, rdf_out_form)

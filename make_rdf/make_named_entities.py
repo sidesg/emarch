@@ -35,12 +35,12 @@ def choose_import():
 
     if choice == str(2):
         import_dates()
-        emg.write_g(rdf_output_hdir / f"dates.{rdf_out_form}", g, rdf_out_form)
+        emg.write_g(rdf_output_hdir / f"dates.{rdf_out_ext}", g, rdf_out_form)
         exit()
     
     if choice == str(3):
         import_pos()
-        emg.write_g(rdf_output_hdir / f"positions.{rdf_out_form}", g, rdf_out_form)
+        emg.write_g(rdf_output_hdir / f"positions.{rdf_out_ext}", g, rdf_out_form)
         exit()
 
     if choice.lower().startswith("q"):
@@ -50,7 +50,7 @@ def choose_import():
         choose_import()
 
 def import_dates():
-    source_pth = ne_source_dir / ne_config["dates_filename"]
+    source_pth = ne_source_dir / ne_config["source_files"]["dates"]
     ne_df = pd.read_csv(source_pth)
 
     positions = ne_df["id"]
@@ -99,7 +99,7 @@ def import_dates():
 
 
 def import_pos():
-    source_pth = ne_source_dir / ne_config["positions_filename"]
+    source_pth = ne_source_dir / ne_config["source_files"]["positions"]
     positions_df = pd.read_csv(source_pth)
 
     positions = positions_df["id"]

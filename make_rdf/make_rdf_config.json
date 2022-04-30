@@ -8,5 +8,6 @@
     },
     "fonds_csv_path":"../fonds_info/fonds_cat.csv",
     "rdf_output_hdir":"../emarch_rdf",
-    "rdf_output": "jsonld"
+    "rdf_output": "json-ld",
+    "rdf_output_ext": "jsonld" 
 }
